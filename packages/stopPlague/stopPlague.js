@@ -1,10 +1,8 @@
-// content-guard.js
-
 function logMessage() {
   console.info("Basic content protection active", "color: green;");
 }
 
-// Helper to add/remove listeners cleanly
+// Add/remove listeners
 function bindListener(target, event, handler) {
   target.addEventListener(event, handler);
   return () => target.removeEventListener(event, handler);
@@ -33,7 +31,9 @@ export function stopCtrlShiftKey(keys = []) {
 }
 
 //Block copy, replace clipboard content
-export function stopCopy(replaceText = "Don't try to copy our content, it hurts the developer") {
+export function stopCopy(
+  replaceText = "Don't try to copy our content, it hurts the developer"
+) {
   const handler = (e) => {
     if (e.ctrlKey && e.key.toLowerCase() === "c") {
       e.preventDefault();
@@ -82,12 +82,18 @@ export function initContentGuard(options = {}) {
   logMessage();
   const unbinders = [];
 
-  if (options.ctrlKeys) unbinders.push(stopCtrlKey(options.ctrlKeys));
-  if (options.ctrlShiftKeys) unbinders.push(stopCtrlShiftKey(options.ctrlShiftKeys));
-  if (options.replaceCopyText) unbinders.push(stopCopy(options.replaceCopyText));
-  if (options.blockRightClick) unbinders.push(stopRightClick(options.showRightClickMsg));
-  if (options.blockF12) unbinders.push(stopF12());
-  if (options.disableTextSelect) disableTextSelect();
+  if (options.ctrlKeys) 
+    unbinders.push(stopCtrlKey(options.ctrlKeys));
+  if (options.ctrlShiftKeys)
+    unbinders.push(stopCtrlShiftKey(options.ctrlShiftKeys));
+  if (options.replaceCopyText)
+    unbinders.push(stopCopy(options.replaceCopyText));
+  if (options.blockRightClick)
+    unbinders.push(stopRightClick(options.showRightClickMsg));
+  if (options.blockF12) 
+    unbinders.push(stopF12());
+  if (options.disableTextSelect) 
+    disableTextSelect();
 
-  return () => unbinders.forEach((unbind) => unbind()); // cleanup function
+  return () => unbinders.forEach((unbind) => unbind()); // cleanup
 }
