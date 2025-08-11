@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My JS Package Showcase</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="https://github.com/sankalp6115/dtbom-space/blob/main/Assets/icon.png?raw=true" type="image/x-icon">
+</head>
+<style>
+  /* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== THEME VARIABLES ===== */
+:root {
+  --bg-color: #f0f0f0;
+  --text-color: #222;
+  --card-bg: rgba(255, 255, 255, 0.15);
+  --accent-color: #4e9eff;
+  --toggle-bg: #ccc;
+  --toggle-btn: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #0d1117;
+    --text-color: #f0f0f0;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --accent-color: #58a6ff;
+    --toggle-bg: #444;
+    --toggle-btn: #ddd;
+  }
+}
+
+/* ===== BASE ===== */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.3s, color 0.3s, transform 0.1s;
+  transition-timing-function: linear(0, 0.462 8.5%, 0.816 17.4%, 0.954 22%, 1.065 26.7%, 1.153 31.6%, 1.217 36.7%, 1.251 41%, 1.271 45.5%, 1.275 50.2%, 1.264 55.3%, 1.214 64.7%, 1.039 87.9%, 1.01 94.3%, 1);
+  overflow-x: hidden;
+  will-change: transform;
+}
+
+/* ===== HEADER (Glassmorphic) ===== */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 2rem;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 1000;
+}
+
+header img {
+  height: 40px;
+}
+
+nav a {
+  margin: 0 0.8rem;
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: var(--accent-color);
+}
+
+/* ===== TOGGLE SWITCH ===== */
+.toggle-wrapper {
+  display: inline-flex;
+  align-items: center;
+  background: var(--toggle-bg);
+  border-radius: 20px;
+  padding: 2px;
+  width: 50px;
+  height: 24px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.toggle-btn {
+  background: var(--toggle-btn);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.toggle-dark {
+  background: var(--accent-color);
+}
+
+/* ===== HERO ===== */
+.hero {
+  padding-top: 6rem;
+  text-align: center;
+  padding-bottom: 2rem;
+}
+
+.hero img {
+  width: 80px;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  margin-top: 0.5rem;
+}
+
+.hero p {
+  max-width: 600px;
+  margin: 0.8rem auto;
+  font-size: 1.1rem;
+}
+
+/* ===== SECTIONS ===== */
+section {
+  max-width: 1200px;
+  margin: 2rem auto;
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  backdrop-filter: blur(10px);
+}
+
+section:nth-child(2n+1) {
+  transform: translateX(100px);
+}
+
+section:nth-child(2n) {
+  transform: translateX(-100px);
+}
+
+section.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+section h2 {
+  margin-bottom: 1rem;
+  color: var(--accent-color);
+}
+
+pre {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  color: #fff;
+}
+
+section.installGuide {
+  line-height: 2em;
+}
+
+div.example {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+button.copy {
+  background-color: transparent;
+  font-size: 1.5em;
+  border: none;
+  transition: 0.2s;
+}
+
+button.copy:hover {
+  scale: 1.1;
+}
+
+button.copy::after {
+  content: 'Copied to Clipboard';
+  position: absolute;
+  background-color: white;
+  font-size: 0.6em;
+  padding: 10px;
+  opacity: 0;
+  transition: 0.2s;
+  width: max-content;
+}
+
+button.copy:focus::after {
+  opacity: 1;
+  scale: 0.8;
+}
+
+/* Table */
+table {}
+
+td {
+  padding: 10px;
+}
+
+/* ===== REVIEW FORM ===== */
+form input,
+form textarea,
+form button {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 0.6rem;
+  border-radius: 6px;
+  border: none;
+}
+
+form button {
+  background: var(--accent-color);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+form button:hover {
+  opacity: 0.9;
+}
+
+/* ===== TESTIMONIALS ===== */
+.usageExamples {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+div.exampleContent {
+  display: flex;
+  flex-direction: column;
+}
+div.exampleContent pre{
+   font-size: 1.2em; 
+   line-height: 2em;
+}
+/* ===== SHOOTING STARS ===== */
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 80px;
+  background: linear-gradient(white, transparent);
+  animation: shoot 7s linear infinite;
+  opacity: 0.7;
+  filter: drop-shadow(0 0 6px white);
+}
+
+@keyframes shoot {
+  0% {
+    transform: translateY(-100px) translateX(0) rotate(160deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(800px) translateX(400px) rotate(160deg);
+    opacity: 0;
+  }
+}
+</style>
+<body>
+
+<div class="stars"></div>
+
+<header>
+  <img src="icon.png" alt="Logo">
+  <nav>
+    <a href="https://github.com/sankalp6115/stopPlague">GitHub</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <div class="toggle-wrapper" id="themeToggle">
+      <div class="toggle-btn"></div>
+    </div>
+  </nav>
+</header>
+
+<div class="hero">
+  <img src="icon.png" alt="Package Icon">
+  <h1>Package Name</h1>
+  <p>Short Description</p>
+</div>
+
+<section class="installGuide">
+  <h2>Installation & Usage</h2>
+  <code>
+    <div class="example exaple1">
+      <p class="one">import * as stopPlague from 'https://cdn.jsdelivr.net/gh/sankalp6115/stopPlague@latest/stopPlague.js';</p>
+      <button class="copy" onclick="copy(document.querySelector('.one').textContent)">📋</button>
+    </div>
+    <div class="example example2">
+      <p class="two">import { stopCtrlKey } from 'https://cdn.jsdelivr.net/gh/sankalp6115/stopPlague@latest/stopPlague.js';</p>
+      <button class="copy" onclick="copy(document.querySelector('.two').textContent)">📋</button>
+    </div>      
+    <div class="example example3">
+      <p>stopPlague.stopCtrlKey(['a','s']);</p>
+    </div>
+  </code>
+</section>
+
+<section>
+  <h2>Get Started</h2>
+
+  <table class="userGuide">
+<thead>
+  <tr>
+    <th>Function</th>
+    <th>Description</th>
+    <th>Example</th>
+  </tr>
+</thead>
+
+<tbody>
+  <tr>
+    <td>
+      <pre>stopCtrlKey(keys = [])</pre>
+    </td>
+    <td>
+      Blocks any <strong>Ctrl + [key]</strong> combinations where <code>[key]</code> matches an item in the provided array.
+      Useful for preventing shortcuts like <code>Ctrl+U</code> (View Source) or <code>Ctrl+C</code> (Copy).
+    </td>
+    <td>
+      <pre>stopCtrlKey(['u', 'c', 'p']) 
+// Blocks Ctrl+U, Ctrl+C, Ctrl+P</pre>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <pre>stopCtrlShiftKey(keys = [])</pre>
+    </td>
+    <td>
+      Blocks any <strong>Ctrl + Shift + [key]</strong> combinations where <code>[key]</code> is in the provided array.
+      Often used to block developer tool shortcuts like <code>Ctrl+Shift+I</code> or <code>Ctrl+Shift+J</code>.
+    </td>
+    <td>
+      <pre>stopCtrlShiftKey(['i', 'j']) 
+// Blocks Ctrl+Shift+I, Ctrl+Shift+J</pre>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <pre>stopCopy(replaceText = "")</pre>
+    </td>
+    <td>
+      Prevents copying text via <code>Ctrl+C</code>.  
+      If <code>replaceText</code> is provided, that text will be placed into the clipboard instead.  
+      If not provided, a default warning message will be copied.
+    </td>
+    <td>
+      <pre>stopCopy("Copying is disabled here!") 
+// Replaces copied text with the given string</pre>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <pre>stopRightClick(showMessage = false)</pre>
+    </td>
+    <td>
+      Disables the right-click context menu.  
+      If <code>showMessage</code> is <code>true</code>, an alert will be shown when the user right-clicks.
+    </td>
+    <td>
+      <pre>stopRightClick(true) 
+// Disables right-click and shows an alert</pre>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <pre>stopF12()</pre>
+    </td>
+    <td>
+      Blocks pressing the <strong>F12</strong> key, which usually opens browser developer tools.
+    </td>
+    <td>
+      <pre>stopF12() 
+// Disables F12 DevTools shortcut</pre>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <pre>disableTextSelect()</pre>
+    </td>
+    <td>
+      Disables text selection for all elements on the page, except inputs, textareas, buttons, and forms to preserve normal interaction.
+    </td>
+    <td>
+      <pre>disableTextSelect() 
+// Prevents selecting page text</pre>
+    </td>
+  </tr>
+</tbody>
+
+  </table>
+</section>
+
+<section>
+  <h2>Examples</h2>
+  <div class="usageExamples">
+    <div class="exampleContent">
+        <pre style="font-size: 1.2em; line-height: 2em;">
+        initContentGuard({
+          ctrlKeys: ['u', 'c', 'p'],        // Blocks Ctrl+U, Ctrl+C, Ctrl+P
+          ctrlShiftKeys: ['i', 'j'],        // Blocks Ctrl+Shift+I, Ctrl+Shift+J
+          replaceCopyText: "Nice try!",     // Replaces copied content with custom text
+          blockRightClick: true,            // Disables right-click
+          showRightClickMsg: false,          // Shows alert when right-click blocked
+          blockF12: true,                   // Blocks F12 DevTools
+          disableTextSelect: true           // Disables text selection
+        });
+        </pre>
+    </div>
+    <h5>OR</h5>
+    <div class="exampleContent">
+        <pre>
+        sp.stopCtrlKeys(['u', 'c', 'p']);     // Blocks Ctrl+U, Ctrl+C, Ctrl+P
+        sp.stopCtrlShiftKeys(['i', 'j']);     // Blocks Ctrl+Shift+I, Ctrl+Shift+J
+        sp.stopCopy("Don't Copy");            // Prevents user from copying content
+        sp.stopRightClick(false),             // Disables right-click
+        sp.stopF12();                         // Blocks F12 DevTools
+        sp.disableTextSelect();               // Disables text selection
+        </pre>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Leave a Review</h2>
+  <form>
+    <input type="text" placeholder="Your Name">
+    <textarea rows="4" placeholder="Your Review"></textarea>
+    <button type="submit">Submit</button>
+  </form>
+</section>
+<script>
+  
+// ===== THEME TOGGLE =====
+const toggleWrapper = document.getElementById('themeToggle');
+const toggleBtn = toggleWrapper.querySelector('.toggle-btn');
+let darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+function applyTheme() {
+  if (darkMode) {
+    document.documentElement.style.setProperty('--bg-color', '#0d1117');
+    document.documentElement.style.setProperty('--text-color', '#f0f0f0');
+    document.documentElement.style.setProperty('--card-bg', 'rgba(255,255,255,0.05)');
+    toggleWrapper.classList.add('toggle-dark');
+    toggleBtn.style.transform = 'translateX(26px)';
+  } else {
+    document.documentElement.style.setProperty('--bg-color', '#f0f0f0');
+    document.documentElement.style.setProperty('--text-color', '#222');
+    document.documentElement.style.setProperty('--card-bg', 'rgba(255,255,255,0.15)');
+    toggleWrapper.classList.remove('toggle-dark');
+    toggleBtn.style.transform = 'translateX(0)';
+  }
+}
+applyTheme();
+toggleWrapper.addEventListener('click', () => { darkMode = !darkMode; applyTheme(); });
+
+// ===== SHOOTING STARS =====
+function createStar() {
+  const star = document.createElement('div');
+  star.classList.add('star');
+  star.style.left = Math.random() * window.innerWidth + 'px';
+  document.querySelector('.stars').appendChild(star);
+  setTimeout(() => star.remove(), 7000);
+}
+setInterval(createStar, 1000);
+
+// ===== SCROLL REVEAL =====
+const sections = document.querySelectorAll('section');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('show');
+  });
+}, { threshold: 0.2 });
+sections.forEach(sec => observer.observe(sec));
+
+// ===== PARALLAX EFFECT =====
+document.addEventListener('mousemove', e => {
+  const moveX = (e.clientX / window.innerWidth - 0.5) * 10;
+  const moveY = (e.clientY / window.innerHeight - 0.5) * 10;
+  document.body.style.transform = `translate(${moveX}px, ${moveY}px)`;
+});
+
+function copy(text=""){
+  navigator.clipboard.writeText(text);
+}
+
+
+</script>
+</body>
+</html>

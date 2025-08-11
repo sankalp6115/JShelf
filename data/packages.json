@@ -1,0 +1,9 @@
+[
+    {
+      "name": "Stop-Plague JS",
+      "description": "A lightweight JavaScript shield to block right-clicks, hotkeys, and casual content theft in seconds.",
+      "link": "packages/stopPlague",
+      "tags": ["utility", "content-theft", "plagiarism", "piracy"],
+      "icon": "packages/stopPlague/icon.png"
+    }
+]
