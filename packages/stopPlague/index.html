@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My JS Package Showcase</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="https://github.com/sankalp6115/dtbom-space/blob/main/Assets/icon.png?raw=true" type="image/x-icon">
+</head>
+<body>
+
+<div class="stars"></div>
+
+<header>
+  <img src="icon.png" alt="Logo">
+  <nav>
+    <a href="https://github.com/sankalp6115/stopPlague">GitHub</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <div class="toggle-wrapper" id="themeToggle">
+      <div class="toggle-btn"></div>
+    </div>
+  </nav>
+</header>
+
+<div class="hero">
+  <img src="icon.png" alt="Package Icon">
+  <h1>Stop-Plague JS</h1>
+  <p>A lightweight JavaScript shield to block right-clicks, hotkeys, and casual content theft in seconds.</p>
+</div>
+
+<section class="installGuide">
+  <h2>Installation & Usage</h2>
+  <code>
+    <div class="example exaple1">
+      <p class="one">import * as stopPlague from 'https://cdn.jsdelivr.net/gh/sankalp6115/stopPlague@latest/stopPlague.js';</p>
+      <button class="copy" onclick="copy(document.querySelector('.one').textContent)">📋</button>
+    </div>
+    <div class="example example2">
+      <p class="two">import { stopCtrlKey } from 'https://cdn.jsdelivr.net/gh/sankalp6115/stopPlague@latest/stopPlague.js';</p>
+      <button class="copy" onclick="copy(document.querySelector('.two').textContent)">📋</button>
+    </div>      
+    <div class="example example3">
+      <p>stopPlague.stopCtrlKey(['a','s']);</p>
+    </div>
+  </code>
+</section>
+
+<section>
+  <h2>Get Started</h2>
+
+  <table class="userGuide">
+<thead>
+  <tr>
+    <th>Function</th>
+    <th>Description</th>
+    <th>Example</th>
+  </tr>
+</thead>
+
+<tbody>
+  <tr>
+    <td>
+      <pre>stopCtrlKey(keys = [])</pre>
+    </td>
+    <td>
+      Blocks any <strong>Ctrl + [key]</strong> combinations where <code>[key]</code> matches an item in the provided array.
+      Useful for preventing shortcuts like <code>Ctrl+U</code> (View Source) or <code>Ctrl+C</code> (Copy).
+    </td>
+    <td>
+      <pre>stopCtrlKey(['u', 'c', 'p']) 
+// Blocks Ctrl+U, Ctrl+C, Ctrl+P</pre>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <pre>stopCtrlShiftKey(keys = [])</pre>
+    </td>
+    <td>
+      Blocks any <strong>Ctrl + Shift + [key]</strong> combinations where <code>[key]</code> is in the provided array.
+      Often used to block developer tool shortcuts like <code>Ctrl+Shift+I</code> or <code>Ctrl+Shift+J</code>.
+    </td>
+    <td>
+      <pre>stopCtrlShiftKey(['i', 'j']) 
+// Blocks Ctrl+Shift+I, Ctrl+Shift+J</pre>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <pre>stopCopy(replaceText = "")</pre>
+    </td>
+    <td>
+      Prevents copying text via <code>Ctrl+C</code>.  
+      If <code>replaceText</code> is provided, that text will be placed into the clipboard instead.  
+      If not provided, a default warning message will be copied.
+    </td>
+    <td>
+      <pre>stopCopy("Copying is disabled here!") 
+// Replaces copied text with the given string</pre>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <pre>stopRightClick(showMessage = false)</pre>
+    </td>
+    <td>
+      Disables the right-click context menu.  
+      If <code>showMessage</code> is <code>true</code>, an alert will be shown when the user right-clicks.
+    </td>
+    <td>
+      <pre>stopRightClick(true) 
+// Disables right-click and shows an alert</pre>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <pre>stopF12()</pre>
+    </td>
+    <td>
+      Blocks pressing the <strong>F12</strong> key, which usually opens browser developer tools.
+    </td>
+    <td>
+      <pre>stopF12() 
+// Disables F12 DevTools shortcut</pre>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <pre>disableTextSelect()</pre>
+    </td>
+    <td>
+      Disables text selection for all elements on the page, except inputs, textareas, buttons, and forms to preserve normal interaction.
+    </td>
+    <td>
+      <pre>disableTextSelect() 
+// Prevents selecting page text</pre>
+    </td>
+  </tr>
+</tbody>
+
+  </table>
+</section>
+
+<section>
+  <h2>Examples</h2>
+  <div class="usageExamples">
+    <div class="exampleContent">
+        <pre style="font-size: 1.2em; line-height: 2em;">
+        initContentGuard({
+          ctrlKeys: ['u', 'c', 'p'],        // Blocks Ctrl+U, Ctrl+C, Ctrl+P
+          ctrlShiftKeys: ['i', 'j'],        // Blocks Ctrl+Shift+I, Ctrl+Shift+J
+          replaceCopyText: "Nice try!",     // Replaces copied content with custom text
+          blockRightClick: true,            // Disables right-click
+          showRightClickMsg: false,          // Shows alert when right-click blocked
+          blockF12: true,                   // Blocks F12 DevTools
+          disableTextSelect: true           // Disables text selection
+        });
+        </pre>
+    </div>
+    <h5>OR</h5>
+    <div class="exampleContent">
+        <pre>
+        sp.stopCtrlKeys(['u', 'c', 'p']);     // Blocks Ctrl+U, Ctrl+C, Ctrl+P
+        sp.stopCtrlShiftKeys(['i', 'j']);     // Blocks Ctrl+Shift+I, Ctrl+Shift+J
+        sp.stopCopy("Don't Copy");            // Prevents user from copying content
+        sp.stopRightClick(false),             // Disables right-click
+        sp.stopF12();                         // Blocks F12 DevTools
+        sp.disableTextSelect();               // Disables text selection
+        </pre>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Leave a Review</h2>
+  <form>
+    <input type="text" placeholder="Your Name">
+    <textarea rows="4" placeholder="Your Review"></textarea>
+    <button type="submit">Submit</button>
+  </form>
+</section>
+<script src="script.js"></script>
+</body>
+</html>
