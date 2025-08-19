@@ -1,53 +1,132 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Confetti Test</title>
+  <title>Confetti Playground</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      gap: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff4081;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff79b0;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 320px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      align-items: center;
+    }
+
+    input[type="range"] {
+      flex: 1;
+      margin: 0 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      margin-left: 10px;
+      padding: 3px 6px;
+      border-radius: 4px;
+      border: none;
+    }
+  </style>
 </head>
-<style>
-  body {
-    margin: 0;
-    background-color: black;
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    background-color: #ff4081;
-    color: white;
-    cursor: pointer;
-  }
-
-  button:hover {
-    background-color: #ff79b0;
-  }
-</style>
 <body>
   <button id="celebrate">Celebrate!</button>
 
+  <div class="controls">
+    <label>
+      Theme:
+      <select id="theme">
+        <option value="">Random</option>
+        <option value="party">Party 🎉</option>
+        <option value="elegant">Elegant ✨</option>
+        <option value="crazy">Crazy 💥</option>
+        <option value="easterEgg">Easter Egg 🐥</option>
+      </select>
+    </label>
+
+    <label>
+      Duration (ms):
+      <input id="duration" type="range" min="1000" max="10000" step="500" value="2000" />
+      <span id="durationVal">2000</span>
+    </label>
+
+    <label>
+      Particle Count:
+      <input id="particleCount" type="range" min="100" max="4000" step="100" value="1500" />
+      <span id="particleVal">1500</span>
+    </label>
+
+    <label>
+      Message:
+      <input id="message" type="text" placeholder="Enter your message" value="" />
+    </label>
+  </div>
+
   <script type="module">
-import confettiOnSuccess from './../confettiOnSuccess.js';
+    import confettiOnSuccess from './../confettiOnSuccess.js';
 
-document.body.style.backgroundColor = "black";
-document.getElementById('celebrate').addEventListener('click', () => {
-  confettiOnSuccess({
-    particleCount: 200,
-    colors: ['#ff0000', '#00ff00', '#0000ff'],
-    duration: 3000,
-    message: 'Congratulations!',
-  });
-});
+    const btn = document.getElementById('celebrate');
+    const durationInput = document.getElementById('duration');
+    const durationVal = document.getElementById('durationVal');
+    const particleInput = document.getElementById('particleCount');
+    const particleVal = document.getElementById('particleVal');
+    const themeSelect = document.getElementById('theme');
+    const messageInput = document.getElementById('message');
 
+    // Show live values
+    durationInput.addEventListener('input', () => {
+      durationVal.textContent = durationInput.value;
+    });
+    particleInput.addEventListener('input', () => {
+      particleVal.textContent = particleInput.value;
+    });
+
+    btn.addEventListener('click', () => {
+      const duration = parseInt(durationInput.value);
+      const particleCount = parseInt(particleInput.value);
+      const theme = themeSelect.value || undefined;
+      const message = messageInput.value || undefined;
+
+      confettiOnSuccess({
+        theme,
+        duration,
+        particleCount,
+        message
+      });
+    });
   </script>
 </body>
-</html>
-
 </html>

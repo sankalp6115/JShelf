@@ -1,5 +1,4 @@
 export default function confettiOnSuccess(options = {}) {
-  // Define themes
   const themes = {
     party: {
       colors: ['#ff00ff', '#00ffff', '#ffff00', '#ff0080', '#00ffea'],
@@ -18,17 +17,15 @@ export default function confettiOnSuccess(options = {}) {
     },
     easterEgg: {
       colors: ['#ffcc00', '#00ccff', '#ff6699'],
-      particleCount: 100,
+      particleCount: 120,
       message: '🐥 Easter Egg!',
       emojis: ['🐥', '🐸', '🍕']
     }
   };
 
-  // Detect April Fool’s for easter egg mode automatically if date option not set
   const today = new Date();
   const isAprilFools = today.getMonth() === 3 && today.getDate() === 1;
 
-  // Choose theme
   let themeKey;
   if (options.theme && themes[options.theme]) {
     themeKey = options.theme;
@@ -40,7 +37,6 @@ export default function confettiOnSuccess(options = {}) {
   }
   const theme = themes[themeKey];
 
-  // Merge options with theme defaults
   const config = {
     particleCount: options.particleCount ?? theme.particleCount,
     colors: options.colors ?? theme.colors,
@@ -48,6 +44,10 @@ export default function confettiOnSuccess(options = {}) {
     message: options.message ?? theme.message,
     emojis: options.emojis ?? theme.emojis ?? [],
   };
+
+  if (themeKey === 'easterEgg') {
+    config.particleCount = Math.min(config.particleCount, 200);
+  }
 
   const canvas = document.createElement('canvas');
   canvas.style.position = 'fixed';
@@ -67,33 +67,68 @@ export default function confettiOnSuccess(options = {}) {
   setSize();
   window.addEventListener('resize', setSize);
 
+  function createEmojiCanvas(emoji, size) {
+    const offCanvas = document.createElement('canvas');
+    const ctx = offCanvas.getContext('2d');
+    offCanvas.width = size * 2;
+    offCanvas.height = size * 2;
+    ctx.font = `${size}px serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(emoji, size, size);
+    return offCanvas;
+  }
+
   class Particle {
     constructor() {
       this.x = Math.random() * canvas.width;
       this.y = Math.random() * -canvas.height;
       this.size = Math.random() * 20 + 20;
       this.color = config.colors[Math.floor(Math.random() * config.colors.length)];
-      this.speedX = (Math.random() - 0.5) * 4;
-      this.speedY = Math.random() * 3 + 2;
       this.opacity = 1;
-      this.decay = 0.015 + Math.random() * 0.04;
-      this.tilt = Math.random() * 10 - 10;
-      this.tiltSpeed = (Math.random() * 0.1) + 0.05;
-      this.isEmoji = config.emojis.length > 0 && Math.random() < 0.3;
-      this.emoji = this.isEmoji ? config.emojis[Math.floor(Math.random() * config.emojis.length)] : null;
+
+      this.isEmoji = config.emojis.length > 0 && Math.random() < 0.2; // ~20% emojis
+      if (this.isEmoji) {
+        this.emoji = config.emojis[Math.floor(Math.random() * config.emojis.length)];
+        this.emojiCanvas = createEmojiCanvas(this.emoji, this.size);
+
+        // 🌟 Emoji physics → floaty, slower
+        this.speedX = (Math.random() - 0.5) * 1.5;
+        this.speedY = Math.random() * 1.5 + 0.5;
+        this.decay = 0.005 + Math.random() * 0.01; // fade much slower
+      } else {
+        this.emoji = null;
+        this.emojiCanvas = null;
+
+        // 🌟 Confetti strip physics → fast, spinny
+        this.speedX = (Math.random() - 0.5) * 4;
+        this.speedY = Math.random() * 3 + 2;
+        this.decay = 0.015 + Math.random() * 0.04;
+        this.tilt = Math.random() * 10 - 10;
+        this.tiltSpeed = (Math.random() * 0.1) + 0.05;
+      }
     }
+
     update() {
       this.x += this.speedX;
       this.y += this.speedY;
-      this.speedY += 0.05;
-      this.tilt += this.tiltSpeed;
+
+      if (this.isEmoji) {
+        // gentle float
+        this.speedY += 0.01;
+      } else {
+        // confetti strips tilt/spin
+        this.speedY += 0.05;
+        this.tilt += this.tiltSpeed;
+      }
+
       this.opacity -= this.decay;
     }
+
     draw(ctx) {
-      if (this.isEmoji && this.emoji) {
-        ctx.font = `${this.size}px serif`;
+      if (this.isEmoji && this.emojiCanvas) {
         ctx.globalAlpha = this.opacity;
-        ctx.fillText(this.emoji, this.x, this.y);
+        ctx.drawImage(this.emojiCanvas, this.x, this.y);
         ctx.globalAlpha = 1;
       } else {
         ctx.beginPath();
@@ -144,7 +179,6 @@ export default function confettiOnSuccess(options = {}) {
 
   animate(start);
 
-  // Success message banner
   if (config.message) {
     const banner = document.createElement('div');
     banner.innerText = config.message;
