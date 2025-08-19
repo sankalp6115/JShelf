@@ -5,5 +5,12 @@
       "link": "packages/stopPlague",
       "tags": ["utility", "content-theft", "plagiarism", "piracy"],
       "icon": "packages/stopPlague/icon.png"
+    },
+    {
+      "name": "Confetti On Success",
+      "description": "A lightweight JavaScript utility that celebrates success events with beautiful confetti animations.",
+      "link": "packages/confetti-on-success",
+      "tags": ["utility", "animation", "confetti"],
+      "icon": "packages/confetti-on-success/icon.png"
     }
 ]
