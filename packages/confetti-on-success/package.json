@@ -1,0 +1,9 @@
+{
+  "name": "confetti-on-success",
+  "version": "1.0.0",
+  "description": "🎉 Trigger a fun celebration with confetti, emojis, and optional sounds when something awesome happens!",
+  "main": "index.js",
+  "keywords": ["confetti", "success", "animation", "celebration"],
+  "author": "Your Name",
+  "license": "MIT"
+}

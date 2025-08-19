@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Confetti Test</title>
+</head>
+<style>
+  body {
+    margin: 0;
+    background-color: black;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff4081;
+    color: white;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #ff79b0;
+  }
+</style>
+<body>
+  <button id="celebrate">Celebrate!</button>
+
+  <script type="module">
+import confettiOnSuccess from './../confettiOnSuccess.js';
+
+document.body.style.backgroundColor = "black";
+document.getElementById('celebrate').addEventListener('click', () => {
+  confettiOnSuccess({
+    particleCount: 200,
+    colors: ['#ff0000', '#00ff00', '#0000ff'],
+    duration: 3000,
+    message: 'Congratulations!',
+  });
+});
+
+  </script>
+</body>
+</html>
+
+</html>
