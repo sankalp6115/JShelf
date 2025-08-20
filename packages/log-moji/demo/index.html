@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" href="https://github.com/sankalp6115/dtbom-space/blob/main/Assets/icon.png?raw=true">
+
+  <title>Log-Moji Demo</title>
+  <style>
+    body{
+      background-color: rgb(10,10,10);
+      color: white;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Custom Console</h1>
+  <h3>You might want to open devtools console for this one. 😉</h3>
+  <section id="buttons">
+    <button class="button success">Log</button>
+    <button class="button warn">Warn</button>
+    <button class="button error">Error</button>
+    <button class="button info">Info</button>
+    <button class="button debug">Debug</button>
+  </section>
+
+  <script>
+
+  </script>
+  <script type="module">
+    import {log} from './../log-moji.js';
+
+    const success = document.querySelector('.success');
+    const warn = document.querySelector('.warn');
+    const error = document.querySelector('.error');
+    const info = document.querySelector('.info');
+    const debug = document.querySelector('.debug');
+
+    success.addEventListener('click', () => log.success('Yes Successful operation'));
+    warn.addEventListener('click', () => log.warn('This is a warning'));
+    error.addEventListener('click', () => log.error('This is an error'));
+    info.addEventListener('click', () => log.info('This is some information'));
+    debug.addEventListener('click', () => log.debug('This is a debug message'));
+  </script>
+</body>
+</html>

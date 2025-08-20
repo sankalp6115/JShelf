@@ -12,5 +12,12 @@
       "link": "packages/confetti-on-success",
       "tags": ["utility", "animation", "confetti"],
       "icon": "packages/confetti-on-success/icon.png"
+    },
+    {
+      "name": "Log - Moji",
+      "description": "A lightweight JavaScript utility for colorful console logging.",
+      "link": "packages/log-moji",
+      "tags": ["utility", "logging", "console"],
+      "icon": "packages/log-moji/icon.png"
     }
 ]
