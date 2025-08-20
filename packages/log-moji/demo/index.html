@@ -11,6 +11,20 @@
       font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
       text-align: center;
     }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff4081;
+      color: white;
+      cursor: pointer;
+      transition: 0.1s;
+      &:hover{
+        scale: 1.1;
+      }
+    }
   </style>
 </head>
 <body>
@@ -21,7 +35,6 @@
     <button class="button warn">Warn</button>
     <button class="button error">Error</button>
     <button class="button info">Info</button>
-    <button class="button debug">Debug</button>
   </section>
 
   <script>
@@ -34,13 +47,11 @@
     const warn = document.querySelector('.warn');
     const error = document.querySelector('.error');
     const info = document.querySelector('.info');
-    const debug = document.querySelector('.debug');
 
     success.addEventListener('click', () => log.success('Yes Successful operation'));
     warn.addEventListener('click', () => log.warn('This is a warning'));
     error.addEventListener('click', () => log.error('This is an error'));
     info.addEventListener('click', () => log.info('This is some information'));
-    debug.addEventListener('click', () => log.debug('This is a debug message'));
   </script>
 </body>
 </html>

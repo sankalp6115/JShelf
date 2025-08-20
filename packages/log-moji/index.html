@@ -309,6 +309,24 @@
       opacity: 0;
     }
   }
+    button#demo{
+    background-color: var(--accent-color);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.8rem 1.2rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    transition: 0.3s;
+
+    &:hover{
+      background-color: var(--accent-color);
+      filter: brightness(0.7);
+    }
+  } 
 </style>
 
 <body>
@@ -336,6 +354,8 @@
       icons, timestamps, and optional stack traces.
     </p>
   </div>
+
+  <a href="demo/index.html"><button id="demo">Demo</button></a>
 
   <section class="installGuide">
     <h2>Installation & Usage</h2>
